@@ -1,22 +1,31 @@
 class Solution {
+
+    int count = 0;
+
     public int countSubstrings(String s) {
-        int c = 0;
-        for(int i=0;i<s.length();i++){
-            int l = i;
-            int r = i;
-            while(l>=0 && r<s.length() && s.charAt(l)==s.charAt(r)){
-                c++;
-                l--;
-                r++;
-            }
-            l = i;
-            r = i+1;
-             while(l>=0 && r<s.length() && s.charAt(l)==s.charAt(r)){
-                c++;
-                l--;
-                r++;
-            }
+
+        for(int i = 0; i < s.length(); i++) {
+
+            // odd length
+            expand(s, i, i);
+
+            // even length
+            expand(s, i, i + 1);
         }
-        return c;
+
+        return count;
+    }
+
+    public void expand(String s, int left, int right) {
+
+        while(left >= 0 &&
+              right < s.length() &&
+              s.charAt(left) == s.charAt(right)) {
+
+            count++;
+
+            left--;
+            right++;
+        }
     }
 }
