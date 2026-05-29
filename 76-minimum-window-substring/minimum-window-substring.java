@@ -1,51 +1,34 @@
 class Solution {
     public String minWindow(String s, String t) {
-        if (s.length() < t.length()) {
-            return "";
+        int maps[] = new int[256];
+        int mapt[] = new int[256];
+        for(char ch : t.toCharArray()) {
+            mapt[ch]++;
         }
-
-        int l = 0;
-        int c = 0;
-        int si = 0;
-        int m = Integer.MAX_VALUE;
-
-        int f[] = new int[256];
-
-        for (char cha : t.toCharArray()) {
-            f[cha]++;
-        }
-
-        for (int r = 0; r < s.length(); r++) {
-            char ch = s.charAt(r);
-
-            if (f[ch] > 0) {
-                c++;
-            }
-            f[ch]--;
-
-            
-            while (c == t.length()) {
-
-                int win = r - l + 1;
-                if (win < m) {
-                    m = win;
-                    si = l;
+        int left = 0;
+        int min = Integer.MAX_VALUE;
+        int minstart = 0;
+        for(int right = 0; right < s.length(); right++) {
+            maps[s.charAt(right)]++;
+            while(contains(maps, mapt)) {
+             if(right - left + 1 < min) {
+                    min = right - left + 1;
+                    minstart = left;
                 }
-
-                char left = s.charAt(l);
-                f[left]++;
-
-                if (f[left] > 0) {
-                    c--;
-                }
-
-                l++;
+                maps[s.charAt(left)]--;
+                left++;
             }
         }
-
-        if (m == Integer.MAX_VALUE)
-            return "";
-        else
-            return s.substring(si, si + m);
+        return min == Integer.MAX_VALUE
+                ? ""
+                : s.substring(minstart, minstart + min);
+    }
+    public boolean contains(int maps[], int mapt[]) {
+        for(int i = 0; i < 256; i++) {
+            if(mapt[i] > maps[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
