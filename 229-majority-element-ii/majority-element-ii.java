@@ -5,9 +5,9 @@ class Solution {
         for(int num:nums){
             map.put(num,map.getOrDefault(num,0)+1);
         }
-        for(int key : map.keySet()) {
-            if(map.get(key) > nums.length / 3) {
-                l.add(key);
+        for(Map.Entry<Integer,Integer> e:map.entrySet()) {
+            if(e.getValue() > nums.length / 3) {
+                l.add(e.getKey());
             }
         }
         return l;
