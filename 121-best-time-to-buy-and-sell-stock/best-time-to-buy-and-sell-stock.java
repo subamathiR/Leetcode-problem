@@ -4,9 +4,7 @@ class Solution {
        int bp = prices[0];
        for(int i=0;i<prices.length;i++){
           int c = prices[i]-bp;
-          if(c>max){
-            max =  c;
-          }
+          max = Math.max(max,c);
           if(prices[i] < bp){
             bp = prices[i];
           }
