@@ -1,17 +1,18 @@
 class Solution {
     public int maxProduct(int n) {
-        int firstMax = 0;
-        int secondMax = 0;
-        while (n > 0) {
-            int digit = n % 10;
-            if (digit >= firstMax) {
-                secondMax = firstMax;
-                firstMax = digit;
-            } else if (digit > secondMax) {
-                secondMax = digit;
+        int fm = 0;
+        int sm = 0;
+        while(n>0){
+            int d = n%10;
+            if(d>=fm){
+                sm = fm;
+                fm = d;
             }
-            n /= 10;
+            else if(d>=sm){
+                sm = d;
+            }
+            n/=10;
         }
-        return firstMax * secondMax;
+        return fm*sm;
     }
 }
